@@ -1,5 +1,5 @@
 
-function creategrid(GridSize){
+function creategrid(GridSize, ChangeColor){
     let row;
     let column;
     const container = document.getElementById('container');
@@ -18,16 +18,16 @@ function creategrid(GridSize){
         column.appendChild(row);
     }
     }
-
+    ChangeColor();
 }
 
-function DeclareSize(creategrid){
+function DeclareSize(creategrid, ChangeColor){
     // Button Functions
 let button;
 button = document.getElementById('prompt');
 
 button.onclick = () => {
-    
+
     // Ask user for Size of grid.
     const x = parseInt(prompt('Enter a size:'));
 
@@ -37,10 +37,32 @@ button.onclick = () => {
     }
     // Clearing the container and creating a new one accoriding to user.
     document.getElementById('container').textContent = "";
-    creategrid(x);
+
+    creategrid(x, ChangeColor);
+    
 }
 
 
+
 }
 
-DeclareSize(creategrid);
+
+function ChangeColor(){
+    let elements = Array.from(document.getElementsByClassName('row'));
+    elements.forEach(element => {
+        element.addEventListener('mouseover', function handleClick(event) {
+          console.log('box clicked', event);
+            let randred = Math.floor((Math.random() * 255) + 1);
+            let randblue = Math.floor((Math.random() * 255) + 1);
+            let randgreen = Math.floor((Math.random() * 255)+ 1);
+
+      
+          element.setAttribute('style', `background-color: rgb(${randred}, ${randblue}, ${randgreen});`);
+    });
+
+});
+}
+creategrid(16 , ChangeColor);
+DeclareSize(creategrid, ChangeColor);
+
+
